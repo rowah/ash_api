@@ -17,7 +17,11 @@ defmodule AshDemo.Application do
       # Start a worker by calling: AshDemo.Worker.start_link(arg)
       # {AshDemo.Worker, arg},
       # Start to serve requests, typically the last entry
-      AshDemoWeb.Endpoint
+      AshDemoWeb.Endpoint,
+      #
+      {AshAuthentication.Supervisor, otp_app: :ash_demo}
+      #
+
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

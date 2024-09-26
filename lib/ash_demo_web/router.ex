@@ -1,6 +1,8 @@
 defmodule AshDemoWeb.Router do
   use AshDemoWeb, :router
 
+  use AshAuthentication.Phoenix.Router
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -8,6 +10,8 @@ defmodule AshDemoWeb.Router do
     plug :put_root_layout, html: {AshDemoWeb.Layouts, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+
+    plug :load_from_session
   end
 
   pipeline :api do
@@ -18,6 +22,11 @@ defmodule AshDemoWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+
+    auth_routes AuthController, AshDemo.Accounts.User, path: "/auth"
+    sign_out_route AuthController
+    sign_in_route(register_path: "/register", reset_path: "/reset", auth_routes_prefix: "/auth")
+    reset_route [auth_routes_prefix: "/auth"]
   end
 
   # Other scopes may use custom stacks.
