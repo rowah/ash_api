@@ -14,6 +14,9 @@ config :ash,
   default_page_type: :keyset,
   policies: [no_filter_static_forbidden_reads?: false]
 
+config :ash_demo,
+  ash_apis: [AshDemo.Api]
+
 config :spark,
   formatter: [
     remove_parens?: true,
@@ -99,3 +102,17 @@ import_config "#{config_env()}.exs"
 config :ash_authentication, ash_authentication: [
   # ... other configurations
 ]
+
+# ... existing config ...
+
+# config :ash, :apis, [AshDemo.Api]
+
+config :ash_graphql,
+  json_type: :json,
+  default_managed_relationship_type_name_template: :action
+
+config :ash_json_api,
+  router: AshDemoWeb.Router,
+  base_path: "/api/json"
+
+# ... rest of the config ...

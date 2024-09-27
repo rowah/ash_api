@@ -19,8 +19,9 @@ defmodule AshDemo.Application do
       # Start to serve requests, typically the last entry
       AshDemoWeb.Endpoint,
       #
-      {AshAuthentication.Supervisor, otp_app: :ash_demo}
+      {AshAuthentication.Supervisor, otp_app: :ash_demo},
       #
+      AshDemo.Api
 
     ]
 

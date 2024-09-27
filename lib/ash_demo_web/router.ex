@@ -14,8 +14,13 @@ defmodule AshDemoWeb.Router do
     plug :load_from_session
   end
 
+  pipeline :graphql do
+    plug AshGraphql.Plug
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
+    plug AshAuthentication.Plug.SetActor
   end
 
   scope "/", AshDemoWeb do
@@ -27,6 +32,29 @@ defmodule AshDemoWeb.Router do
     sign_out_route AuthController
     sign_in_route(register_path: "/register", reset_path: "/reset", auth_routes_prefix: "/auth")
     reset_route [auth_routes_prefix: "/auth"]
+  end
+
+  scope "/api" do
+    pipe_through [:api, :graphql]
+
+    # forward "/graphiql", Absinthe.Plug.GraphiQL,
+    #   schema: AshDemo.Accounts.Schema
+
+    # forward "/graphql", Absinthe.Plug, schema: AshDemo.Accounts.Schema
+    forward "/graphql", Absinthe.Plug,
+      schema: AshDemo.Accounts.Schema
+
+    forward "/graphiql", Absinthe.Plug.GraphiQL,
+      schema: AshDemo.Accounts.Schema,
+      interface: :playground
+
+    # forward "/json", AshJsonApi.Router, api: AshDemo.Api
+
+  end
+
+  scope "/api/json" do
+    pipe_through :api
+    forward "/", AshJsonApi.Router, api: AshDemo.Api
   end
 
   # Other scopes may use custom stacks.

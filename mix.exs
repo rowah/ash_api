@@ -33,7 +33,7 @@ defmodule AshDemo.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      # {:ash, "~> 3.0"},
+      {:ash, "~> 3.0"},
       {:igniter, "~> 0.3"},
       {:phoenix, "~> 1.7.14"},
       {:phoenix_ecto, "~> 4.5"},
@@ -62,12 +62,15 @@ defmodule AshDemo.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.5"},
-      {:ash, "~> 3.4"},
       {:picosat_elixir, "~> 0.2.3"},
       {:ash_postgres, "~> 2.4"},
       {:ash_phoenix, "~> 2.1"},
       {:ash_authentication, "~> 4.0"},
-      {:ash_authentication_phoenix, "~> 2.1"}
+      {:ash_authentication_phoenix, "~> 2.1"},
+      {:ash_graphql, "~> 1.3"},
+      {:ash_json_api, "~> 1.4"},
+      {:absinthe, "~> 1.7"},
+      {:absinthe_plug, "~> 1.5"}
     ]
   end
 
